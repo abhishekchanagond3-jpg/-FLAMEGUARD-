@@ -1,0 +1,100 @@
+THE PROJECT CONNECTIONS🔥〽️
+🔥 Full Project: Flame Guard Advanced System
+🧠 Components used
+Arduino (Uno)
+Flame Sensor
+Smoke Sensor (MQ-2)
+Servo Motor
+Water Pump (or motor)
+Buzzer
+🔌 Circuit Connections (VERY CLEAR)
+1️⃣ Flame Sensor
+Copy code
+
+VCC → 5V (Arduino)
+GND → GND
+DO  → Pin 2
+2️⃣ Smoke Sensor (MQ-2)
+Copy code
+
+VCC → 5V
+GND → GND
+AO  → A0 (Analog pin)
+3️⃣ Buzzer
+Copy code
+
++ → Pin 8
+- → GND
+4️⃣ Servo Motor
+Copy code
+
+Red   → 5V
+Brown → GND
+Orange → Pin 9
+5️⃣ Water Pump (IMPORTANT ⚠️)
+👉 Use transistor/relay (safe way)
+Simple idea:
+Copy code
+
+Pump + → External Battery +
+Pump - → Relay / Transistor → GND
+Control pin → Pin 7 (Arduino)
+
+
+
+ THE PROJECT CODE 🔥〽️
+#include <Servo.h>
+
+int flamePin = 2;
+int smokePin = A0;
+int buzzer = 8;
+int pump = 7;
+int smokeThreshold = 300;
+
+Servo myServo;
+
+void setup() {
+  pinMode(flamePin, INPUT);
+  pinMode(buzzer, OUTPUT);
+  pinMode(pump, OUTPUT);
+
+  myServo.attach(9);
+
+  Serial.begin(9600);
+}
+
+void loop() {
+  int flame = digitalRead(flamePin);
+  int smoke = analogRead(smokePin);
+
+  Serial.print("Smoke Level: ");
+  Serial.println(smoke);
+
+  // Fire or Smoke detected
+  if (flame == LOW || smoke > smokeThreshold) {
+    
+    digitalWrite(buzzer, HIGH);   // Alarm ON
+    digitalWrite(pump, HIGH);     // Pump ON
+    
+    // Servo movement (spray direction)
+    myServo.write(0);
+    delay(500);
+    myServo.write(90);
+    delay(500);
+    myServo.write(180);
+    delay(500);
+
+    Serial.println("🔥 FIRE OR SMOKE DETECTED!");
+    
+  } else {
+    
+    digitalWrite(buzzer, LOW);    // Alarm OFF
+    digitalWrite(pump, LOW);      // Pump OFF
+    myServo.write(90);
+
+    Serial.println("Safe");
+  }
+
+  delay(500);
+}
+
