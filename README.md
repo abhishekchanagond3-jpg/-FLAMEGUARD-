@@ -82,6 +82,42 @@ This system can reduce forest damage, protect wildlife, and save human lives.
 - underground tank
 - solar panel
 
+🔌 Complete Wire Connections (Simple)
+🔥 1. Flame Sensor
+VCC → 5V (Arduino)
+GND → GND
+DO → Pin 2
+💨 2. MQ-2 Smoke Sensor
+VCC → 5V
+GND → GND
+AO → A0
+🔊 3. Buzzer
++ (Positive) → Pin 8
+– (Negative) → GND
+🔄 4. Servo Motor
+Red → 5V
+Brown → GND
+Orange → Pin 9
+💧 5. Water Pump (VERY IMPORTANT ⚠️)
+👉 Do NOT connect pump directly to Arduino
+Use Relay Module or Transistor
+✔️ Using Relay (Best)
+Relay VCC → 5V
+Relay GND → GND
+Relay IN → Pin 7
+Pump Connection:
+Battery + → Relay COM
+Relay NO → Pump +
+Pump – → Battery –
+⚡ Power Notes
+Arduino → USB power
+Pump → Separate battery (6V–12V)
+🔥 Simple Working Flow
+Fire detected 🔥
+→ Buzzer ON 🚨
+→ Pump ON 💧
+→ Servo moves 🔄
+
 ## 💻 Code
 (#include <Servo.h>
 
