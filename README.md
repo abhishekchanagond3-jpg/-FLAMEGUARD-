@@ -17,6 +17,9 @@ FLAMEGUARD is an Arduino-based smart system designed to detect fire and smoke in
 - Servo Motor
 - Water Pump
 - Buzzer
+- sprinkler 
+- underground tank
+- solar panel
 
 ## 💻 Code
 (#include <Servo.h>
